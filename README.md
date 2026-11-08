@@ -12,7 +12,7 @@ npx skills add dwim-sh/skills
 | Skill | What it is for |
 |---|---|
 | [`dwim-plan`](dwim-plan/) | Plan a change for dwim to implement: investigate, decide the design, and write one self-contained task file per commit under `.dwim/plans/<name>/`. |
-| [`dwim-do`](dwim-do/) | Run the next step of a plan: hand the task to dwim, review the change, verify it, commit it with `Generated-by: dwim`, and tick it off. |
+| [`dwim-do`](dwim-do/) | Run a plan step by step until it is done: hand each task to dwim, review the change, verify it, commit it with `Generated-by: dwim`, tick it off, and go on to the next. `next` or a step number runs just one. |
 
 The division of labour: the agent you talk to plans, decides, reviews
 and commits; dwim gets one bounded task at a time, with everything it
