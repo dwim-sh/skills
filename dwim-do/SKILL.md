@@ -1,23 +1,24 @@
 ---
 name: dwim-do
-description: Run the next step of a dwim plan: hand its task file to dwim, the local coding agent, watch the run, review the change as a pull request, fix it, verify it, commit it with Generated-by dwim, and tick it off in .dwim/plans/<name>/PLAN.md. Use this whenever the user says to run, continue, do or redo a dwim step or plan, asks dwim to implement the next step, or asks where a dwim plan stands, including bare "/dwim-do", "next step", "keep going with dwim" or "status". Takes a step number, "all", "redo" or "status".
+description: Run a dwim plan step by step until it is done: hand each step's task file to dwim, the local coding agent, watch the run, review the change as a pull request, fix it, verify it, commit it with Generated-by dwim, and tick it off in .dwim/plans/<name>/PLAN.md, then go on to the next. Use this whenever the user says to run, continue, do or redo a dwim step or plan, asks dwim to implement the next step, or asks where a dwim plan stands, including bare "/dwim-do", "next step", "keep going with dwim" or "status". Takes an optional plan name, then a step number, "next", "redo" or "status".
 ---
 
 # dwim-do
 
 A plan written by `/dwim-plan` is a directory `.dwim/plans/<name>/` with
 a `PLAN.md` whose `## Steps` checklist is the state, and one task file
-`NN-<slug>.md` per step. This skill runs one step end to end: dwim types,
+`NN-<slug>.md` per step. This skill runs the plan's steps one after
+another, each end to end: dwim types,
 you watch, review, fix, verify and commit. dwim's work is not done until
 you have read it and the checks pass under your own hands; the commit is
 yours.
 
-## The argument
+## The arguments
 
-- none: the first unticked step.
-- `N`: step N, whatever its state.
-- `all`: step after step until one fails review or none remain, with
-  the report for each as it lands.
+- none (or `all`): every unticked step in order, in a loop, until one
+  fails review or none remain, with the report for each as it lands.
+- `next`: only the first unticked step, then stop.
+- `N`: only step N, whatever its state, then stop.
 - `redo`: the first unticked step again, after the user edited its task
   file; throw away what the last run left in the tree first
   (`git checkout -- .` and `git clean -fd` for the files that run made,
@@ -25,7 +26,10 @@ yours.
 - `status`: the checklist with each step's subject, ticked or not, and
   stop.
 
-With nothing unticked, print the status and stop.
+A plan's name may come first, as in `/dwim-do skills` or
+`/dwim-do skills next`, to pick the plan under `.dwim/plans/` when there
+are several; alone, it runs all of that plan's unticked steps. With
+nothing unticked, print the status and stop.
 
 ## 1. Find the plan and get ready
 
@@ -112,5 +116,10 @@ The plan directory is outside git, so the tick is not part of the commit.
 
 In a few lines: what dwim did, how long and how many calls (count the
 `(`-lines in `.err`), what you fixed, the commit hash, and what is next.
-With `all`, go round again; stop at the first step whose review fails
-and say why.
+
+## 6. Loop
+
+Unless the argument was `next`, `N` or `redo`, go back to step 1 for the
+next unticked step, without waiting for the user. Stop when none remain
+and print the status, or at the first step whose review fails, a run
+that is lost twice, or a check you cannot make pass, and say why.
