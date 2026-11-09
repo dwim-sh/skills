@@ -1,13 +1,8 @@
----
-name: dwim-do
-description: Run a dwim plan step by step until it is done: hand each step's task file to dwim, the local coding agent, watch the run, review the change as a pull request, fix it, verify it, commit it with Generated-by dwim, and tick it off in .dwim/plans/<name>/PLAN.md, then go on to the next. Use this whenever the user says to run, continue, do or redo a dwim step or plan, asks dwim to implement the next step, or asks where a dwim plan stands, including bare "/dwim-do", "next step", "keep going with dwim" or "status". Takes an optional plan name, then a step number, "next", "redo" or "status".
----
+# /dwim do
 
-# dwim-do
-
-A plan written by `/dwim-plan` is a directory `.dwim/plans/<name>/` with
+A plan written by `/dwim plan` is a directory `.dwim/plans/<name>/` with
 a `PLAN.md` whose `## Steps` checklist is the state, and one task file
-`NN-<slug>.md` per step. This skill runs the plan's steps one after
+`NN-<slug>.md` per step. This command runs the plan's steps one after
 another, each end to end: dwim types,
 you watch, review, fix, verify and commit. dwim's work is not done until
 you have read it and the checks pass under your own hands; the commit is
@@ -26,8 +21,8 @@ yours.
 - `status`: the checklist with each step's subject, ticked or not, and
   stop.
 
-A plan's name may come first, as in `/dwim-do skills` or
-`/dwim-do skills next`, to pick the plan under `.dwim/plans/` when there
+A plan's name may come first, as in `/dwim do skills` or
+`/dwim do skills next`, to pick the plan under `.dwim/plans/` when there
 are several; alone, it runs all of that plan's unticked steps. With
 nothing unticked, print the status and stop.
 

@@ -1,21 +1,16 @@
----
-name: dwim-plan
-description: Plan a coding change for dwim, the local coding agent, to implement step by step: investigate the code, decide the design, split the work into commits, and write one self-contained task file per commit under .dwim/plans/ for /dwim-do to run. Use this whenever the user wants something implemented, built or fixed "with dwim" or "using dwim", asks for a plan dwim will carry out, or asks to break work down for dwim, even if they do not say "plan". Writes the plan only; runs nothing.
----
-
-# dwim-plan
+# /dwim plan
 
 `dwim` runs a 27B model locally. It does well on one clear, bounded task
 with everything it needs in the prompt, and badly on anything vague,
 open-ended or spread over several steps: its context is small, it cannot
 ask anyone, and a task that needs a design decision ends with the wrong
 one. So the planning is yours. You read the code, make the decisions and
-write each step out as a prompt dwim can carry out on its own. `/dwim-do`
+write each step out as a prompt dwim can carry out on its own. `/dwim do`
 then runs the steps one at a time.
 
-This skill ends with the plan on disk and a short report. It runs no
+This command ends with the plan on disk and a short report. It runs no
 step: the user reads the plan, edits what they want, and starts
-`/dwim-do` themselves.
+`/dwim do` themselves.
 
 ## 1. Investigate
 
@@ -83,7 +78,7 @@ How to exercise the result by hand, if there is a way.
 - [ ] 02 <area>: <commit subject>
 ```
 
-The checklist is the state `/dwim-do` reads and ticks. Commit subjects
+The checklist is the state `/dwim do` reads and ticks. Commit subjects
 follow the project's log: look at `git log --oneline` for the area
 prefixes and the mood.
 
@@ -116,7 +111,7 @@ the one file to read.
 ## 4. Report and stop
 
 Tell the user, in a few lines: the design in a sentence or two, the steps
-by subject, where the plan is, and that `/dwim-do` runs the first step.
+by subject, where the plan is, and that `/dwim do` runs the first step.
 Do not start a step.
 
 ## Example task file
